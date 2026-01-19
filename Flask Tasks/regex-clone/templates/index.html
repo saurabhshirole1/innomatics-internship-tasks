@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🔍Regex Tester</title>
+</head>
+
+<body style="
+    margin:0;
+    font-family:'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg,#eef2ff,#e0e7ff);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+">
+
+<div style="
+    background:#ffffff;
+    width:85%;
+    max-width:950px;
+    padding:30px;
+    border-radius:18px;
+    color:#1f2937;
+    box-shadow:0 20px 40px rgba(0,0,0,0.12);
+    max-height:85vh;
+    overflow-y:auto;
+">
+
+    <h1 style="margin:0 0 6px 0;text-align:center;">Regex Tester 🔍</h1>
+    <form method="POST">
+
+        <label style="font-weight:600;color:#374151;">Regular Expression</label><br>
+        <input type="text" name="pattern" required
+        value="{{ pattern }}"
+        placeholder="e.g. \bword\b"
+        style="
+            width:100%;
+            padding:12px;
+            margin-top:6px;
+            border-radius:10px;
+            border:1px solid #d1d5db;
+            font-size:15px;
+            background:#ffffff;
+        "><br><br>
+
+        <label style="font-weight:600;color:#374151;">Test String</label><br>
+     <textarea name="text" required
+placeholder="Enter the string..."
+style="
+    width:100%;
+    height:120px;
+    padding:12px;
+    margin-top:6px;
+    border-radius:10px;
+    border:1px solid #d1d5db;
+    font-size:15px;
+    resize:none;
+    background:#ffffff;
+">{{ text }}</textarea>
+
+
+        <button type="submit"
+        style="
+            width:100%;
+            padding:14px;
+            font-size:17px;
+            border:none;
+            border-radius:12px;
+            background:linear-gradient(90deg,#22d3ee,#38bdf8);
+            color:#083344;
+            cursor:pointer;
+            font-weight:700;
+        ">
+            Test Regex
+        </button>
+    </form>
+
+    {% if error %}
+        <p style="color:#dc2626;margin-top:18px;">{{ error }}</p>
+    {% endif %}
+
+    {% if matches %}
+        <div style="
+            margin-top:25px;
+            background:#f8fafc;
+            padding:18px;
+            border-radius:12px;
+            border:1px solid #e5e7eb;
+            max-height:160px;
+            overflow-y:auto;
+        ">
+            <h3 style="margin-top:0;font-size:16px;">Highlighted Output</h3>
+            <div style="line-height:1.6;font-size:14px;">
+                {{ highlighted | safe }}
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Note Taking App</title>
+</head>
+
+<body style="font-family:Arial;background:#f4f6ff;padding:40px;">
+
+<div style="max-width:600px;margin:auto;background:white;
+padding:25px;border-radius:8px;">
+
+    <h2>Note Taking Application</h2>
+
+    <form method="POST">
+        <input type="text" name="note" placeholder="Enter a note"
+        style="width:100%;padding:10px;" required>
+        <br><br>
+        <button type="submit" style="padding:10px 20px;">Add Note</button>
+    </form>
+
+    {% if notes %}
+        <h3>All Notes</h3>
+        <ul>
+            {% for note in notes %}
+                <li>{{ note }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

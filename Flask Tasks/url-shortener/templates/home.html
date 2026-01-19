@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Shortener</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card p-4 mx-auto" style="max-width:600px;">
+
+        <h3 class="text-center mb-4">URL Shortener</h3>
+
+        <form method="POST">
+            <input type="text" name="url" class="form-control"
+                   placeholder="Enter URL to shorten" required>
+            <button class="btn btn-primary w-100 mt-3">
+                Shorten URL
+            </button>
+        </form>
+
+        {% if error %}
+            <div class="alert alert-danger mt-3">{{ error }}</div>
+        {% endif %}
+
+        {% if short_url %}
+            <div class="alert alert-success mt-3">
+                <label class="form-label">Shortened URL</label>
+
+                <input type="text" id="shortUrl"
+                       class="form-control mb-2"
+                       value="{{ short_url }}" readonly>
+
+                <button class="btn btn-success w-100"
+                        onclick="copyToClipboard()">
+                    Copy
+                </button>
+            </div>
+        {% endif %}
+
+        <a href="/history" class="btn btn-link mt-3 text-center">
+            View History
+        </a>
+    </div>
+</div>
+
+<script>
+function copyToClipboard() {
+    const text = document.getElementById("shortUrl");
+    text.select();
+    navigator.clipboard.writeText(text.value);
+    alert("Short URL copied!");
+}
+</script>
+
+</body>
+</html>
