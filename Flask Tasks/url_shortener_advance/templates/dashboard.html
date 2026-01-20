@@ -8,12 +8,15 @@
 
 <div class="container mt-5">
 <div class="card p-4">
+
 <h4>Welcome {{ current_user.username }}</h4>
 
 <form method="POST">
 <input class="form-control mt-3" name="url" placeholder="Enter URL" required>
 <button class="btn btn-primary mt-3">Shorten URL</button>
 </form>
+
+{% if error %}<p class="text-danger mt-2">{{ error }}</p>{% endif %}
 
 {% if short_url %}
 <input class="form-control mt-3" value="{{ short_url }}" readonly>
@@ -26,7 +29,8 @@
 {% endfor %}
 </ul>
 
-<a href="/logout" class="btn btn-danger">Logout</a>
+<a href="/logout" class="btn btn-danger mt-3">Logout</a>
+
 </div>
 </div>
 
