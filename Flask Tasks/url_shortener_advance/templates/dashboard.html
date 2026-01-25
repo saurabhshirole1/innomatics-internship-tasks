@@ -2,7 +2,9 @@
 <html>
 <head>
 <title>Dashboard</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body class="bg-light">
 
@@ -12,27 +14,83 @@
 <h4>Welcome {{ current_user.username }}</h4>
 
 <form method="POST">
-<input class="form-control mt-3" name="url" placeholder="Enter URL" required>
-<button class="btn btn-primary mt-3">Shorten URL</button>
+  <input class="form-control mt-3" name="url" placeholder="Enter URL" required>
+  <button class="btn btn-primary mt-3">Shorten URL</button>
 </form>
 
-{% if error %}<p class="text-danger mt-2">{{ error }}</p>{% endif %}
+{% if error %}
+<p class="text-danger mt-2">{{ error }}</p>
+{% endif %}
 
 {% if short_url %}
-<input class="form-control mt-3" value="{{ short_url }}" readonly>
+<!-- Latest Short URL -->
+<div class="input-group mt-3">
+  <input class="form-control" id="mainShortUrl" value="{{ short_url }}" readonly>
+  <button class="btn btn-success"
+          id="mainCopyBtn"
+          type="button"
+          onclick="copyText('mainShortUrl','mainCopyBtn')">
+    Copy
+  </button>
+</div>
 {% endif %}
 
 <h5 class="mt-4">Your URLs</h5>
-<ul>
+<ul class="list-group">
+
 {% for u in urls %}
-<li>{{ u.original_url }} → {{ request.host_url }}{{ u.short_code }}</li>
+<li class="list-group-item d-flex justify-content-between align-items-center">
+  <span>
+    {{ u.original_url }} →
+    <span id="url{{ u.id }}">{{ request.host_url }}{{ u.short_code }}</span>
+  </span>
+  <button class="btn btn-outline-success btn-sm"
+          onclick="copyText('url{{ u.id }}', this)">
+    Copy
+  </button>
+</li>
 {% endfor %}
+
 </ul>
 
-<a href="/logout" class="btn btn-danger mt-3">Logout</a>
+<a href="/logout" class="btn btn-danger mt-3 w-100">Logout</a>
 
 </div>
 </div>
+
+<!-- Toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="copyToast" class="toast align-items-center text-bg-success border-0">
+    <div class="d-flex">
+      <div class="toast-body">
+        Short URL copied successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function copyText(elementId, btn) {
+  const text = document.getElementById(elementId).innerText
+               || document.getElementById(elementId).value;
+
+  navigator.clipboard.writeText(text);
+
+  if (btn.tagName === "BUTTON") {
+    const original = btn.innerText;
+    btn.innerText = "Copied!";
+    setTimeout(() => btn.innerText = original, 1500);
+  }
+
+  const toast = new bootstrap.Toast(document.getElementById("copyToast"));
+  toast.show();
+}
+</script>
 
 </body>
 </html>

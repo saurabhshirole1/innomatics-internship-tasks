@@ -1,0 +1,13 @@
+# Ignore databases
+*.db
+instance/
+
+# Ignore videos
+*.mp4
+
+# Ignore virtual environments
+myenv/
+venv/
+
+# Ignore Python cache
+__pycache__/
