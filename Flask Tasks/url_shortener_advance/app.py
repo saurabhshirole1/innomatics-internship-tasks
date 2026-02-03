@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import random, string, validators
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "secret123"
+app.config["SECRET_KEY"] = "secretkey"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -59,8 +59,7 @@ def login():
             return redirect(url_for("dashboard"))
         else:
             error = "Invalid username or password"
-
-    return render_template("home.html", error=error)
+    return render_template("login.html", error=error)
 
 # ---------------- DASHBOARD ----------------
 @app.route("/dashboard", methods=["GET", "POST"])
@@ -71,6 +70,7 @@ def dashboard():
 
     if request.method == "POST":
         original_url = request.form["url"]
+
         if not validators.url(original_url):
             error = "Invalid URL"
         else:
@@ -85,7 +85,10 @@ def dashboard():
             short_url = request.host_url + code
 
     urls = URL.query.filter_by(user_id=current_user.id).all()
-    return render_template("dashboard.html", short_url=short_url, urls=urls, error=error)
+    return render_template("dashboard.html",
+                           short_url=short_url,
+                           urls=urls,
+                           error=error)
 
 # ---------------- REDIRECT ----------------
 @app.route("/<code>")

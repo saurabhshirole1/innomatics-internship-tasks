@@ -1,0 +1,16 @@
+# Ignore database files
+*.db
+
+# Ignore instance folders
+instance/
+
+# Ignore videos
+*.mp4
+
+# Ignore virtual environment
+myenv/
+venv/
+
+# Ignore Python cache
+__pycache__/
+    
