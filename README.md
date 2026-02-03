@@ -49,7 +49,16 @@ Throughout the program, I am working on real-time assignments, hands-on coding t
 - Understanding agent frameworks  
 - Autonomous agents  
 - Task planning & tool use  
-- Building simple AI agents for real-world tasks  
+- Building simple AI agents for real-world tasks
+
+## Innomatics Internship Tasks
+
+- This repository contains all tasks completed as part of my internship at
+Innomatics Research Labs.
+
+- Each folder represents a separate task or project and is self-contained
+with its own code, documentation, and outputs.
+
 
 ---
 
